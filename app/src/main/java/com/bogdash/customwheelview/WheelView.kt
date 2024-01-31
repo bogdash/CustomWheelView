@@ -3,14 +3,20 @@ package com.bogdash.customwheelview
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.core.animation.doOnEnd
+import com.squareup.picasso.MemoryPolicy
+import com.squareup.picasso.Picasso
+import org.w3c.dom.Text
 import kotlin.random.Random
 
 class WheelView(context: Context, attributeSet: AttributeSet) : View(context, attributeSet) {
@@ -19,8 +25,9 @@ class WheelView(context: Context, attributeSet: AttributeSet) : View(context, at
     private var startAngle = 0
     private lateinit var animator: ValueAnimator
     private lateinit var canvas: Canvas
-
-
+    private var sector = 0
+    private lateinit var imageView: ImageView
+    private lateinit var textView: TextView
 
     private val colors = listOf(
         Color.RED,
@@ -44,7 +51,6 @@ class WheelView(context: Context, attributeSet: AttributeSet) : View(context, at
         this.canvas = canvas
         drawCircleRainbow(canvas)
     }
-
 
     private fun drawCircleRainbow(canvas: Canvas) {
         val centerX = width / 2f
@@ -71,7 +77,6 @@ class WheelView(context: Context, attributeSet: AttributeSet) : View(context, at
         event?.let { it ->
             when (it.action) {
                 MotionEvent.ACTION_UP -> {
-                    invalidate()
                     val initialAngle = startAngle % 360
                     startAngle = Random.nextInt(360, 3600)
                     val newDuration = (startAngle - initialAngle) / 360 * 1000L
@@ -88,46 +93,50 @@ class WheelView(context: Context, attributeSet: AttributeSet) : View(context, at
                         start()
                     }
                 }
-
                 else -> {}
             }
         }
         return true
     }
 
-    override fun invalidate() {
-        super.invalidate()
-        if (resultText.isNotEmpty()) {
-            resultText = ""
-        }
-    }
-
     private fun showResult(startAngle: Int) {
-        val sector = (startAngle % 360) / (360f / 7f).toInt()
+        sector = (startAngle % 360) / (360f / 7f).toInt()
 
         when(sector){
             0 -> resultText = "Violet"
-            1 -> resultText = "Blue"
+            1 -> {
+                resultText = ""
+                setImage()
+            }
             2 -> resultText = "Light Blue"
-            3 -> resultText = "Green"
+            3 -> {
+                resultText = ""
+                setImage()
+            }
             4 -> resultText = "Yellow"
-            5 -> resultText = "Orange"
+            5 -> {
+                resultText = ""
+                setImage()
+            }
             6 -> resultText = "Red"
         }
-        drawText(canvas)
+        textView.text = resultText
+
     }
-    private fun drawText(canvas: Canvas) {
 
-        paint.textSize = 50f
-        val textWidth = paint.measureText(resultText)
-        val fontMetrics = paint.fontMetrics
-        val textHeight = fontMetrics.bottom - fontMetrics.top
+    fun setOnRotationEndListener(imageView: ImageView, textView: TextView) {
+        this.imageView = imageView
+        this.textView = textView
+    }
 
-        val textX = (width - textWidth) / 2
-        val textY = (height - textHeight) / 2
-
-        paint.color = Color.BLACK
-        paint.textAlign = Paint.Align.LEFT
-        canvas.drawText(resultText, textX, textY, paint)
+    private fun setImage() {
+        val url = "https://loremflickr.com/320/240"
+        try {
+            Picasso.get().load(url).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                .into(imageView)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show()
+        }
     }
 }

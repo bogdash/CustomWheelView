@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Custom Wheel View</string>
+    <string name="touch">Нажми!</string>
+    <string name="reset">Reset</string>
 </resources>
