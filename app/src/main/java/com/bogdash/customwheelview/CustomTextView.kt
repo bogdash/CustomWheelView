@@ -11,7 +11,8 @@ import android.util.TypedValue
 import android.widget.TextView
 
 @SuppressLint("AppCompatCustomView")
-class CustomTextView(context: Context, attributeSet: AttributeSet) : TextView(context, attributeSet) {
+class CustomTextView(context: Context, attributeSet: AttributeSet) :
+    TextView(context, attributeSet) {
     private val paint = Paint()
 
     init {

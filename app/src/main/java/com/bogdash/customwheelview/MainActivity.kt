@@ -12,11 +12,14 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.wheelView.setOnRotationEndListener(binding.imageView, binding.customTextView)
-        binding.button.setOnClickListener {
-            binding.wheelView.reset()
-            binding.customTextView.text = getString(R.string.touch)
-            binding.seekBar.progress = 50
+        binding.apply {
+            wheelView.setOnRotationEndListener(imageView, customTextView)
+
+            button.setOnClickListener {
+                wheelView.reset()
+                customTextView.text = getString(R.string.touch)
+                seekBar.progress = 50
+            }
         }
 
         binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
