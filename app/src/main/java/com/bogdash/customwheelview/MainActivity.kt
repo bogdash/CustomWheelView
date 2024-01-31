@@ -12,10 +12,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.wheelView.setOnRotationEndListener(binding.imageView, binding.tvColor)
+        binding.wheelView.setOnRotationEndListener(binding.imageView, binding.customTextView)
         binding.button.setOnClickListener {
             binding.wheelView.reset()
-            binding.tvColor.text = getString(R.string.touch)
+            binding.customTextView.text = getString(R.string.touch)
             binding.seekBar.progress = 50
         }
 
@@ -34,6 +34,5 @@ class MainActivity : AppCompatActivity() {
 
             }
         })
-
     }
 }

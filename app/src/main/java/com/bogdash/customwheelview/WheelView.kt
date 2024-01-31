@@ -101,22 +101,34 @@ class WheelView(context: Context, attributeSet: AttributeSet) : View(context, at
         sector = (startAngle % 360) / (360f / 7f).toInt()
 
         when(sector){
-            0 -> resultText = "Violet"
+            0 -> {
+                resultText = "Violet"
+                imageView.visibility = GONE
+            }
             1 -> {
                 resultText = ""
                 setImage()
             }
-            2 -> resultText = "Light Blue"
+            2 -> {
+                resultText = "Light Blue"
+                imageView.visibility = GONE
+            }
             3 -> {
                 resultText = ""
                 setImage()
             }
-            4 -> resultText = "Yellow"
+            4 -> {
+                resultText = "Yellow"
+                imageView.visibility = GONE
+            }
             5 -> {
                 resultText = ""
                 setImage()
             }
-            6 -> resultText = "Red"
+            6 -> {
+                resultText = "Red"
+                imageView.visibility = GONE
+            }
         }
         textView.text = resultText
 
@@ -128,6 +140,7 @@ class WheelView(context: Context, attributeSet: AttributeSet) : View(context, at
     }
 
     private fun setImage() {
+        imageView.visibility = VISIBLE
         val url = "https://loremflickr.com/320/240"
         try {
             Picasso.get().load(url).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
@@ -142,6 +155,7 @@ class WheelView(context: Context, attributeSet: AttributeSet) : View(context, at
         resultText = ""
         sector = 0
         rotation = 0f
-        imageView.setImageDrawable(null)
+        animator.cancel()
+        imageView.visibility = GONE
     }
 }
