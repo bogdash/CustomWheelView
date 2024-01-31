@@ -12,5 +12,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.wheelView.setOnRotationEndListener(binding.imageView, binding.tvColor)
+        binding.button.setOnClickListener {
+            binding.wheelView.reset()
+            binding.tvColor.text = getString(R.string.touch)
+        }
     }
 }

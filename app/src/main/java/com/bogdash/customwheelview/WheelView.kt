@@ -9,14 +9,12 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.animation.doOnEnd
 import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.Picasso
-import org.w3c.dom.Text
 import kotlin.random.Random
 
 class WheelView(context: Context, attributeSet: AttributeSet) : View(context, attributeSet) {
@@ -138,5 +136,12 @@ class WheelView(context: Context, attributeSet: AttributeSet) : View(context, at
             e.printStackTrace()
             Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    fun reset() {
+        resultText = ""
+        sector = 0
+        rotation = 0f
+        imageView.setImageDrawable(null)
     }
 }
