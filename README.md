@@ -1,5 +1,5 @@
 # Custom Wheel View 
-<img src="https://github.com/bogdash/CustomWheelView/blob/dev/Screenshots/1.png" width="300"> <img src="https://github.com/bogdash/CustomWheelView/blob/dev/Screenshots/2.png" width="300"> <img src="https://github.com/bogdash/CustomWheelView/blob/dev/Screenshots/3.png" width="300">
+<img src="https://github.com/bogdash/CustomWheelView/blob/master/Screenshots/1.png" width="300"> <img src="https://github.com/bogdash/CustomWheelView/blob/master/Screenshots/2.png" width="300"> <img src="https://github.com/bogdash/CustomWheelView/blob/master/Screenshots/3.png" width="300">
 
 
 ## To-Do
