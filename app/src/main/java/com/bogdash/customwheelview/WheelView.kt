@@ -18,7 +18,7 @@ import com.squareup.picasso.Picasso
 import kotlin.random.Random
 
 class WheelView(context: Context, attributeSet: AttributeSet) : View(context, attributeSet) {
-    private lateinit var animator: ValueAnimator
+    private var animator: ValueAnimator? = null
     private lateinit var canvas: Canvas
     private lateinit var imageView: ImageView
     private lateinit var textView: TextView
@@ -60,7 +60,7 @@ class WheelView(context: Context, attributeSet: AttributeSet) : View(context, at
                     val newDuration = (startAngle - initialAngle) / 360 * 500L
 
                     animator = ValueAnimator.ofFloat(initialAngle.toFloat(), startAngle.toFloat())
-                    animator.apply {
+                    animator?.apply {
                         duration = newDuration
                         addUpdateListener {
                             rotation = it.animatedValue as Float
@@ -71,7 +71,6 @@ class WheelView(context: Context, attributeSet: AttributeSet) : View(context, at
                         start()
                     }
                 }
-
                 else -> {}
             }
         }
@@ -82,37 +81,37 @@ class WheelView(context: Context, attributeSet: AttributeSet) : View(context, at
         sector = (startAngle % 360) / (360f / 7f).toInt()
 
         when (sector) {
-            0 -> {
+            COLOR_VIOLET -> {
                 resultText = "Violet"
                 imageView.visibility = GONE
             }
 
-            1 -> {
+            COLOR_BLUE -> {
                 resultText = ""
                 setImage()
             }
 
-            2 -> {
+            COLOR_LIGHT_BLUE -> {
                 resultText = "Light Blue"
                 imageView.visibility = GONE
             }
 
-            3 -> {
+            COLOR_GREEN -> {
                 resultText = ""
                 setImage()
             }
 
-            4 -> {
+            COLOR_YELLOW -> {
                 resultText = "Yellow"
                 imageView.visibility = GONE
             }
 
-            5 -> {
+            COLOR_ORANGE -> {
                 resultText = ""
                 setImage()
             }
 
-            6 -> {
+            COLOR_RED -> {
                 resultText = "Red"
                 imageView.visibility = GONE
             }
@@ -162,7 +161,17 @@ class WheelView(context: Context, attributeSet: AttributeSet) : View(context, at
         resultText = ""
         sector = 0
         rotation = 0f
-        animator.cancel()
+        animator?.cancel()
         imageView.visibility = GONE
+    }
+
+    companion object {
+        private const val COLOR_VIOLET = 0
+        private const val COLOR_BLUE = 1
+        private const val COLOR_LIGHT_BLUE = 2
+        private const val COLOR_GREEN = 3
+        private const val COLOR_YELLOW = 4
+        private const val COLOR_ORANGE = 5
+        private const val COLOR_RED = 6
     }
 }
